@@ -2,35 +2,23 @@
   <app-loadingProgressDynamic
     *ngIf="loadingProgress === 'step changed'"
   ></app-loadingProgressDynamic>
+  <!-- 
   <div>
     <img
-      [src]="'../../../../assets/img/img-newpost/s' + pageOfForm + '.jpg'"
-      class="img-newpost"
+    [src]="'../../../../assets/img/img-newpost/s' + 1 + '.jpg'"
+    class="img-newpost"
     />
   </div>
+  -->
   <form [formGroup]="formNewPost" class="w-100">
-    <ng-container [ngSwitch]="true">
-      <div
-        class="w-100"
-        class="animation-fadein"
-        *ngSwitchCase="pageOfForm === 1 || pageOfForm === 7"
-      >
-        <mat-select
-          (selectionChange)="lockStep = true"
-          formControlName="typeOfPost"
-        >
-          <mat-option value="ask" selected
-            >میخواهم یک سوال ایجاد کنم</mat-option
-          >
-          <mat-option value="post"
-            >میخواهم تجربه ای را به اشتراک بگذارم</mat-option
-          >
+    <ng-container>
+      <div class="w-100" class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="sx">
+          <mat-option value="male"> مرد</mat-option>
+          <mat-option value="female">زن</mat-option>
         </mat-select>
       </div>
-      <div
-        class="animation-fadein"
-        *ngSwitchCase="pageOfForm === 2 || pageOfForm === 7"
-      >
+      <div class="animation-fadein">
         <mat-select (selectionChange)="lockStep = true" formControlName="group">
           <mat-option
             *ngFor="let item of groupCats"
@@ -40,26 +28,19 @@
           >
         </mat-select>
       </div>
-      <div
-        class="animation-fadein"
-        *ngSwitchCase="pageOfForm === 3 || pageOfForm === 7"
-      >
+      <div class="animation-fadein">
         <input
           #title
           id="title"
-          (keyup)="checkInputLength(this)"
           matInput
-          placeholder="موضوع"
+          placeholder="نام واقعی یا مستعار شما"
           formControlName="title"
         />
       </div>
-      <div
-        class="animation-fadein"
-        *ngSwitchCase="pageOfForm === 4 || pageOfForm === 7"
-      >
+      <div class="animation-fadein">
         <div>
           <input
-            placeholder="شاخه های مرتبط"
+            placeholder="از چه تگی برای خود استفاده میکنید؟قد بلند - بلوند یا غیره"
             matInput
             formControlName="category"
           />
@@ -88,47 +69,202 @@
           </ng-container>
         </div>
       </div>
-
-      <div
-        class="animation-fadein d-relative"
-        *ngSwitchCase="pageOfForm === 5 || pageOfForm === 7"
-      >
-        <h3 class="p-1 mb-3 text-muted">توضیحات</h3>
-        <angular-editor
-          #content
-          id="content"
-          formControlName="content"
-          class="editors"
-          name="content"
-          (keyup)="checkContent()"
-        ></angular-editor>
+      <!-- -->
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">سن</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input matSliderThumb #age id="age" matInput formControlName="age" />
+        </mat-slider>
       </div>
-      <div
-        style="flex-basis: 50%"
-        class="animation-fadein"
-        *ngSwitchCase="pageOfForm === 6 || pageOfForm === 7"
-      >
-        <span class="text-light text-title">
-          آیامیخواهید تصویری اضافه کنید؟
-        </span>
-        <span>
-          <button
-            class="bg-success-custom text-light mr-1 ml-1 text-title"
-            mat-raised-button
-            (click)="usePicture = true"
-          >
-            بله
-          </button>
-        </span>
-        <span>
-          <button
-            class="bg-light-custom mr-1 ml-1 text-dark text-title"
-            mat-raised-button
-            (click)="pageOfForm = pageOfForm + 1; lockStep = false"
-          >
-            خیر
-          </button>
-        </span>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">اندازه قد</h3>
+        <mat-slider cl min="140" max="220" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #height
+            id="height"
+            placeholder="height"
+            matInput
+            formControlName="height"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein bg-black">
+        <h3 class="p-2 m-1 text-white">وزن</h3>
+
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #weight
+            id="weight"
+            matInput
+            formControlName="weight"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein">
+        <input
+          #title
+          id="eye"
+          matInput
+          placeholder="رنگ چشم"
+          formControlName="eye"
+        />
+      </div>
+      <div class="animation-fadein">
+        <input
+          #title
+          id="hair"
+          matInput
+          placeholder="رنگ مو"
+          formControlName="hair"
+        />
+      </div>
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="glass">
+          <mat-option value="yes"> ندارم</mat-option>
+          <mat-option value="no">دارم</mat-option>
+        </mat-select>
+      </div>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">دور سینه</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #waist
+            id="waist"
+            matInput
+            formControlName="waist"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">دور کمر</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #hips
+            id="hips"
+            matInput
+            formControlName="hips"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="bra">
+          <mat-option value="A"> A</mat-option>
+          <mat-option value="B">B</mat-option>
+          <mat-option value="C">C</mat-option>
+          <mat-option value="C+">C+</mat-option>
+        </mat-select>
+      </div>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">دور بازو</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input matSliderThumb #arm id="arm" matInput formControlName="arm" />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">دور ران</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #armpit
+            id="armpit"
+            matInput
+            formControlName="armpit"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein w-100 bg-black">
+        <h3 class="p-2 m-1 text-white">درآمد ماهیانه</h3>
+        <mat-slider min="30" max="150" step="1" showTickMarks discrete>
+          <input
+            matSliderThumb
+            #income
+            id="income"
+            matInput
+            formControlName="income"
+          />
+        </mat-slider>
+      </div>
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="tatto">
+          <mat-option value="NO"> ندارم</mat-option>
+          <mat-option value="YES">دارم</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="smoke">
+          <mat-option value="NO"> ندارم</mat-option>
+          <mat-option value="YES">دارم</mat-option>
+        </mat-select>
+      </div>
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="drink">
+          <mat-option value="NO"> ندارم</mat-option>
+          <mat-option value="YES">دارم</mat-option>
+        </mat-select>
+      </div>
+      <div class="animation-fadein">
+        <mat-select
+          (selectionChange)="lockStep = true"
+          formControlName="openrelation"
+        >
+          <mat-option value="NO"> ندارم</mat-option>
+          <mat-option value="YES">دارم</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="animation-fadein">
+        <input
+          #title
+          id="mainattr"
+          matInput
+          placeholder=" خصوصیت بارز شما"
+          formControlName="mainattr"
+        />
+      </div>
+
+      <div class="animation-fadein">
+        <input
+          #title
+          id="car"
+          matInput
+          placeholder="نام خودرو"
+          formControlName="car"
+        />
+      </div>
+
+      <div class="animation-fadein">
+        <mat-select (selectionChange)="lockStep = true" formControlName="tatto">
+          <mat-option value="NO"> ندارم</mat-option>
+          <mat-option value="apartment">آپارتمان</mat-option>
+          <mat-option value="village">ویلایی</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="animation-fadein">
+        <input
+          #title
+          id="region"
+          matInput
+          placeholder="چه ورزشی انجام میدهید؟"
+          formControlName="region"
+        />
+      </div>
+      <div class="animation-fadein">
+        <mat-select
+          (selectionChange)="lockStep = true"
+          formControlName="region"
+        >
+          <mat-option value="NO"> اصلا</mat-option>
+          <mat-option value="apartment">معتدل</mat-option>
+          <mat-option value="village">بسیار مذهبی</mat-option>
+        </mat-select>
+      </div>
+      <div style="flex-basis: 50%" class="animation-fadein">
         <div>
           <button
             class="m-4 text-xlarge"
@@ -150,10 +286,22 @@
           />
         </div>
       </div>
-      <div
-        class="text-center w-100 m-3 p-2 animation-fadein"
-        *ngSwitchCase="pageOfForm === 7"
-      >
+      <div class="animation-fadein d-relative">
+        <h3 class="p-1 mb-3 text-white">
+          توضیحات اضافی که دوست دارید برای کاربران درباره شما نمایش داده شوند را
+          بیان نماپید
+        </h3>
+        <angular-editor
+          #content
+          id="content"
+          formControlName="content"
+          class="editors"
+          name="content"
+          (keyup)="checkContent()"
+        ></angular-editor>
+      </div>
+
+      <div class="text-center w-100 m-3 p-2 animation-fadein">
         <button
           class="w-50 p-2 m-1 bg-black text-light"
           mat-raised-button
@@ -164,36 +312,4 @@
       </div>
     </ng-container>
   </form>
-  <div class="">
-    <ng-container *ngTemplateOutlet="previousStep"></ng-container>
-  </div>
 </div>
-
-<ng-template #previousStep>
-  <div class="pt-4 mt-4 text-left w-100" *ngIf="pageOfForm !== 6">
-    <div class="mb-4" style="text-align: left !important; flex-basis: 50%">
-      <button
-        *ngIf="
-          (pageOfForm < 7 && lockStep) ||
-          pageOfForm === 1 ||
-          pageOfForm === 2 ||
-          pageOfForm === 6
-        "
-        class="bg-success-custom text-light"
-        mat-raised-button
-        (click)="pageNext()"
-      >
-        مرحله بعد
-      </button>
-    </div>
-    <div style="text-align: left !important">
-      <button
-        *ngIf="pageOfForm > 1 && pageOfForm < 7"
-        mat-raised-button
-        (click)="pagePrev()"
-      >
-        مرحله قبل
-      </button>
-    </div>
-  </div>
-</ng-template>

@@ -8,7 +8,7 @@ import { LocalStorageService } from './localstorage.service';
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl = 'https://burjcrown.com/drm/experience/index.php?';
+  baseUrl = 'https://burjcrown.com/drm/date/index.php?';
   constructor(private http: HttpClient) {}
   login(data: loginHandle): Observable<any> {
     const jsonEncoded = encodeURIComponent(JSON.stringify(data));
@@ -181,10 +181,10 @@ export class ApiService {
   }
   submitNewPost(formValues: any, formData: any) {
     console.log(
-      `https://burjcrown.com/drm/experience/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`
+      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`
     );
     return this.http.post(
-      `https://burjcrown.com/drm/experience/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`,
+      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`,
       formData
     );
   }

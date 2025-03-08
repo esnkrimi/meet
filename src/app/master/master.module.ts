@@ -22,7 +22,7 @@ import { LoadingProgressDynamic } from 'src/libs/widgets/loading-progress-dynami
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { MypostsComponent } from './component/myposts/myposts.component';
 import { MessageComponent } from './component/message/message.component';
-
+import { MatSliderModule } from '@angular/material/slider';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -35,12 +35,13 @@ import { MessageComponent } from './component/message/message.component';
     ProfileMenuComponent,
     FollowsComponent,
     MypostsComponent,
-    WishlistComponent
+    WishlistComponent,
   ],
   imports: [
     CommonModule,
     masterRouteModule,
     PostComponent,
+    MatSliderModule,
     LoadingProgressDynamic,
     MatFormFieldModule,
     MatButtonModule,
@@ -48,6 +49,7 @@ import { MessageComponent } from './component/message/message.component';
     MatBadgeModule,
     AngularEditorModule,
     MatInputModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,

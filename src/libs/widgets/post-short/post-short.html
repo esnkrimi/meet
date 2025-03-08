@@ -77,13 +77,6 @@
     <app-loadingProgressDynamic
       *ngIf="loadingProgressDynamicVar === 'post content' + data?.date"
     ></app-loadingProgressDynamic>
-    <div class="d-flex flex-nowrap w-100 cursor-pointer">
-      <div
-        (click)="loadingProgressDynamic('post content' + data?.date)"
-        class="text-light paragraph dir-rtl w-100"
-        [innerHTML]="shortcase(data?.content)"
-      ></div>
-    </div>
 
     <div class="w-100 text-left">
       <mat-chip-set>
@@ -123,7 +116,7 @@
         data?.id +
         '/1.jpg'
       "
-      class="rounded w-100 cursor-pointer"
+      class="rounded w-100 cursor-pointer img-thumb"
     />
   </div>
 
@@ -150,12 +143,6 @@
           class="fa fa-heart hover-color text-medum"
         ></i>
         {{ likeCounter(data?.likes) }}
-      </span>
-    </div>
-    <div>
-      <span (click)="commentsLoad()" class="text-smalls">
-        <i class="fa fa-comment hover-color text-medum"></i>
-        {{ toPersianNumber(data?.comments?.length) }}
       </span>
     </div>
   </div>
@@ -200,9 +187,7 @@
             </span>
           </div>
           <div class="text-light pr-long">
-            <span>
-              {{ item?.comment }}
-            </span>
+            <span> {{ item?.comment }} </span>
             <!--
             <span> <i class="fa fa-heart" [class.text-pink]="item?.likeCounter" (action)="likeComment(item?.id)"></i></span>
             <span>{{ item?.likeCounter }}</span>
@@ -210,9 +195,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="text-center w-100 cursor-pointer">
-      <span (click)="loadMoreComments()">کامنت های بیشتر</span>
     </div>
   </div>
 

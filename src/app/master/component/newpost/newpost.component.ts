@@ -24,7 +24,30 @@ export class NewpostComponent implements OnInit {
     title: new FormControl('', Validators.required),
     category: new FormControl(''),
     content: new FormControl('', Validators.required),
-    typeOfPost: new FormControl('ask'),
+    sx: new FormControl('female'),
+    age: new FormControl('18'),
+    height: new FormControl('170'),
+    weight: new FormControl('70'),
+    hair: new FormControl('مشکی'),
+    eye: new FormControl('مشکی'),
+    glass: new FormControl('ندارم'),
+    bra: new FormControl('A'),
+    waist: new FormControl(''),
+    hips: new FormControl(''),
+    arm: new FormControl(''),
+    armpit: new FormControl(''),
+    income: new FormControl(''),
+    taigh: new FormControl(''),
+    tatto: new FormControl(''),
+    smoke: new FormControl(''),
+    drink: new FormControl(''),
+    region: new FormControl(''),
+    openrelation: new FormControl(''),
+    mainattr: new FormControl(''),
+    car: new FormControl(''),
+    house: new FormControl(''),
+    sport: new FormControl(''),
+
   });
   @ViewChild('title') titleInput: ElementRef | undefined;
   @ViewChild('content') content: ElementRef | undefined;
@@ -37,7 +60,7 @@ export class NewpostComponent implements OnInit {
   pageOfForm = 1;
   lockStep = false;
   loadingProgress: any;
-  usePicture = false;
+  usePicture = true;
   constructor(
     private ng2ImgMaxService: Ng2ImgMaxService,
     private dynamicVariableService: DynamicVariableService,

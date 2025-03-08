@@ -95,23 +95,26 @@
       />
     </ng-container>
     <ng-container *ngIf="searchPool?.length === 0; else searchPoolContainer">
-      <ng-container *ngFor="let item of postDatas; let i = index">
-        <ng-container *ngIf="item.id; else emptyResutl">
-          <app-post [data]="item" [typeOfShow]="'main'"></app-post>
-        </ng-container>
-        <ng-template #emptyResutl>
-          <div
-            class="w-100 p-4"
-            *ngIf="this.componentSetting.settingVariables.offset === 0"
-          >
-            <img
-              class="mr-auto opacity-low rounded w-50"
-              src="../../../../assets/img/notfound.png"
-            />
+      <div class="row">
+        <div *ngFor="let item of postDatas; let i = index" class="col-md-4">
+          <div *ngIf="item.id; else emptyResutl">
+            <app-post-short [data]="item" [typeOfShow]="'main'"></app-post-short>
           </div>
-        </ng-template>
-      </ng-container>
+          <ng-template #emptyResutl>
+            <div
+              class="w-100 p-4"
+              *ngIf="this.componentSetting.settingVariables.offset === 0"
+            >
+              <img
+                class="mr-auto opacity-low rounded w-50"
+                src="../../../../assets/img/notfound.png"
+              />
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </ng-container>
+
     <ng-template #searchPoolContainer>
       <ng-container *ngFor="let item of searchPool; let i = index">
         <ng-container *ngIf="item.id; else emptyResutl">

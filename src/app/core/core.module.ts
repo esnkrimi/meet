@@ -19,6 +19,7 @@ import { LoadingProgressDynamic } from 'src/libs/widgets/loading-progress-dynami
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { PostShortComponent } from 'src/libs/widgets/post-short/post-short';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     LoadingProgressDynamic,
     PostComponent,
+    PostShortComponent,
     coreRouteModule,
     ReactiveFormsModule,
     MatButtonModule,
