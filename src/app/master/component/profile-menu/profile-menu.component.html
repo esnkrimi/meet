@@ -1,0 +1,10 @@
+<div class="w-100 p-2 menu-items">
+  <div
+    class="bg-darker text-white"
+    [routerLink]="['/profile/esnkrimi@gmail.com']"
+    (click)="selectProfileFeature(item.path)"
+    *ngFor="let item of profileMenu"
+  >
+    <p>{{ item.name }}</p>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+.w-100 {
+  width: 100% !important;
+}
+.inline {
+  display: inline-flex;
+}
+.inline > div:first-child {
+  flex-basis: 80%;
+}
+.inline > div:last-child {
+  flex-basis: 20%;
+}
+.icons > span {
+  padding: 2%;
+}
+.streched-button {
+  width: 100%;
+  color: white !important;
+  background-color: black !important;
+}
+.homeWaitRouteAnimation {
+  animation: colorize 2s forwards;
+}
+@keyframes colorize {
+  0% {
+    color: black;
+  }
+  50% {
+    color: green !important;
+  }
+  80% {
+    color: red !important;
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .fa {
+    border: solid 2px #111;
+  }
+}
+.fa {
+  cursor: pointer;
+  padding: 0.15em;
+}
+
+.fa:hover {
+  animation: border-change 1s forwards;
+  cursor: pointer;
+}
+@keyframes border-change {
+  100% {
+    border: solid 3px black;
+    color: var(--COLOR-DARK-RED) !important;
+  }
+}
+.mat-badge-content {
+  background: var(--COLOR-LIGHT-GREEN);
+  color: white
+}

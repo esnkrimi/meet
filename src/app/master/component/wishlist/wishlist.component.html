@@ -1,0 +1,29 @@
+<div *ngIf="datas[0]" class="p-4 bg-darker">
+  <div
+    *ngFor="let item of datas"
+    class="p-1 cursor-pointer"
+    (click)="gotoRouteWithDelay('feature/zoom/' + item.id)"
+  >
+    <div class="rounded p-2 border bg-dark border-black">
+      <div class="row w-100 flex-row-reverse flex-nowrap">
+        <div class="col-md-12">
+          <div class="text-left text-small text-light">
+            <!-- 
+          {{ otDateTime(item.date) }}
+            -->
+          </div>
+          <div
+            class="fw-bold text-right text-light border-black p-1 m-1 border-bottom"
+            style="flex-basis: 90%"
+          >
+            {{ item?.title }}
+          </div>
+          <div
+            class="bg-dark text-right p-1 text-light"
+            [innerHTML]="shortcase(item?.content)"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

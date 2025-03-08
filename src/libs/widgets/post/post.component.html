@@ -1,0 +1,238 @@
+<div *ngIf="data" class="w-100 p-3 mt-2 bg-dark text-right shadow-sm">
+  <div class="d-flex">
+    <div style="flex-basis: 50%" class="text-left text-light"></div>
+    <div style="flex-basis: 50%" class="text-right">
+      <h2 class="text-white text-right" [innerHTML]="data?.title"></h2>
+    </div>
+  </div>
+  <div class="d-flex w-100 flex-row-reverse">
+    <div class="flex-grow-1">
+      <div class="d-flex flex-row-reverse mb-3">
+        <div>
+          <img
+            [routerLink]="['feature/profile/' + data?.user?.email]"
+            [src]="
+              'https://burjcrown.com/drm/experience/users/' +
+              data?.user.email +
+              '/user.jpg'
+            "
+            class="image-icon cursor-pointer"
+          />
+        </div>
+        <div class="d-flex v-align-middle">
+          <div *ngIf="data?.user?.email !== loginedUser">
+            <ng-container *ngIf="!IFollow">
+              <span class="links" *ngIf="deviceIsPc; else shortFollow">
+                <!--
+                دنبال کن
+                -->
+              </span>
+              <ng-template #shortFollow>
+                <span class="text-green p-1">
+                  <i class="fa fa-shield fa-1x links"></i>
+                </span>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="IFollow">
+              <span class="links" *ngIf="deviceIsPc; else shortUnfollow">
+                حذف دنباله</span
+              >
+              <ng-template #shortUnfollow>
+                <span class="text-green p-1">
+                  <i class="fa fa-check fa-x text-success"></i>
+                </span>
+              </ng-template>
+            </ng-container>
+          </div>
+          <div>
+            <p class="text-right">
+              <span class="text-light-muted text-small">نویسنده : </span>
+              <span class="text-light text-small">
+                {{ data?.user?.name }}
+              </span>
+              <span class="text-light text-small"
+                >{{ data?.user?.family }}
+              </span>
+              <span class="text-small text-light">
+                <i
+                  class="fa fa-commenting-o"
+                  (click)="messageBoardActive(data?.user)"
+                ></i
+              ></span>
+              -
+              <span class="text-small text-light"> {{ data?.user?.job }}</span>
+            </p>
+            <p class="mt-2">
+              <span class="w-100 p-2 text-right text-light-muted text-smalls">
+                {{ otDateTime(data?.date) }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 border-darker border-bottom"></div>
+  <div class="mr-1 mt-1 w-100 text-right d-relative">
+    <app-loadingProgressDynamic
+      *ngIf="loadingProgressDynamicVar === 'post content' + data?.date"
+    ></app-loadingProgressDynamic>
+    <div class="d-flex flex-nowrap w-100 cursor-pointer">
+      <div
+        (click)="loadingProgressDynamic('post content' + data?.date)"
+        class="text-light paragraph dir-rtl w-100"
+        [innerHTML]="shortcase(data?.content)"
+      ></div>
+    </div>
+
+    <div class="w-100 text-left">
+      <mat-chip-set>
+        <mat-chip
+          class="chips bg-light-pink text-white border border-light"
+          *ngFor="let c of data.category"
+          >{{ c }}</mat-chip
+        >
+      </mat-chip-set>
+    </div>
+    <!-- 
+    <p class="mt-3 mb-1">
+      <span
+      *ngFor="let cat of data?.category"
+      class="bg-light rounded m-1 w-100 text-right text-dark p-1 text-small dir-rtl"
+      >
+      {{ cat }}
+    </span>
+  </p>
+  --></div>
+  <div class="pt-4 text-right">
+    <img
+      (click)="
+        imageZoom(
+          'https://burjcrown.com/drm/experience/users/' +
+            data?.user.email +
+            '/' +
+            data?.id +
+            '/1.jpg'
+        )
+      "
+      onerror="this.style.display = 'none'"
+      [src]="
+        'https://burjcrown.com/drm/experience/users/' +
+        data?.user.email +
+        '/' +
+        data?.id +
+        '/1.jpg'
+      "
+      class="rounded w-100 cursor-pointer"
+    />
+  </div>
+
+  <div class="d-flex pt-2 mt-2 comments">
+    <div>
+      <span (click)="savePost(data)" class="text-medum">
+        <i
+          [class.fa-bookmark]="
+            userLoginedSavedPost && userLoginedSavedPost?.length > 0
+          "
+          [class.fa-bookmark-o]="
+            userLoginedSavedPost && userLoginedSavedPost?.length === 0
+          "
+          class="fa hover-color text-medum"
+        ></i>
+      </span>
+    </div>
+    <div class="d-relative">
+      <span class="text-small animation-fadein" (click)="likePost(data?.id)">
+        <i
+          [class.text-pink]="
+            userLoginedLikePost && userLoginedLikePost?.length > 0
+          "
+          class="fa fa-heart hover-color text-medum"
+        ></i>
+        {{ likeCounter(data?.likes) }}
+      </span>
+    </div>
+    <div>
+      <span (click)="commentsLoad()" class="text-smalls">
+        <i class="fa fa-comment hover-color text-medum"></i>
+        {{ toPersianNumber(data?.comments?.length) }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div
+  class="w-wider bg-dark border border-black text-right"
+  *ngIf="showComments"
+>
+  <h3 class="text-xlarge text-white p-2 m-1 border-bottom border-light">
+    اتاق گفتگو
+  </h3>
+  <div class="w-100">
+    <div
+      *ngFor="let item of data.comments; let i = index"
+      (click)="addUserDestination(item?.user?.email)"
+    >
+      <div
+        *ngIf="i < commentCounter && item?.comment.length > 0"
+        class="shadow-sm p-1 mb-2 delete-frame"
+      >
+        <div class="w-100 dir-rtl text-right dir-rtl">
+          <div class="fw-bold pl-2 pr-1 text-light text-smalls d-flex">
+            <span>
+              <img
+                [src]="
+                  'https://burjcrown.com/drm/experience/users/' +
+                  item?.user.email +
+                  '/user.jpg'
+                "
+                class="image-icon cursor-pointer"
+              />
+            </span>
+            <span class="text-light-muted mrt-auto">
+              {{ item?.user?.name }} - {{ item?.user?.email }}
+            </span>
+            <span
+              (click)="deleteComment(item)"
+              class="text-light-muted mrt-auto delete-icon"
+            >
+              <i class="fa fa-trash pr-2 cursor-pointer links"></i>
+            </span>
+          </div>
+          <div class="text-light pr-long">
+            <span>
+              {{ item?.comment }}
+            </span>
+            <!--
+            <span> <i class="fa fa-heart" [class.text-pink]="item?.likeCounter" (action)="likeComment(item?.id)"></i></span>
+            <span>{{ item?.likeCounter }}</span>
+            -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center w-100 cursor-pointer">
+      <span (click)="loadMoreComments()">کامنت های بیشتر</span>
+    </div>
+  </div>
+
+  <div class="w-100" *ngIf="loginedUser">
+    <form class="w-100" [formGroup]="formComment">
+      <div class="w-100 text-right p-4">
+        <textarea formControlName="comment" class="w-100 text-area"></textarea>
+        <div class="w-100 text-right text-light">
+          <button
+            mat-raised-button
+            class="bg-black text-light"
+            (click)="submitComment()"
+          >
+            ارسال
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="w-100 text-right p-2" *ngIf="!loginedUser">
+    <span>برای نظر دادن وارد شوید</span>
+  </div>
+</div>

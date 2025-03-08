@@ -1,0 +1,115 @@
+.image-icon {
+  width: 5vh;
+  height: 5vh;
+  margin: 1vh;
+  border-radius: 50%;
+}
+.text-small {
+  font-size: calc(0.79em + 0.09vw) !important;
+  text-justify: initial;
+}
+.chips,
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__text-label {
+  font-size: calc(0.79em + 0.1vw) !important;
+  color:var(--COLOR-DARKER) !important;
+}
+h2 {
+  font-size: calc(0.95em + 0.09vw) !important;
+  margin-bottom: 1vh;
+  font-weight: 600;
+}
+.comments > div {
+  font-size: 1.5vh;
+  padding-left: 1vh;
+  cursor: pointer;
+  color: var(--COLOR-CREAM);
+}
+.text-xl {
+  font-size: 3vh !important;
+}
+.text-like {
+  color: var(--COLOR-RED) !important;
+}
+.text-saves {
+  color: var(--COLOR-GREEN) !important;
+}
+.v-align-middle > div {
+  vertical-align: middle !important;
+  justify-content: center;
+  margin: auto;
+}
+.dir-rtl {
+  direction: rtl !important;
+}
+.paragraph {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  font-size: 1.6vh !important;
+  line-height: 2em;
+  font-family: yekan !important;
+}
+
+.text-area {
+  direction: rtl;
+  text-align: right;
+  background-color: var(--COLOR-DARK) !important;
+  border: solid 1px #c9c5c5 !important;
+  outline: none !important;
+  color: white;
+  height: 10vh;
+  width: 100% !important;
+  padding: 1em;
+}
+.comment-frame {
+  justify-content: right;
+}
+.image-icon {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 50%;
+  outline: #c9c5c5;
+}
+.comment-frame {
+  vertical-align: middle !important;
+  display: flex;
+}
+.bg-darker {
+  background-color: var(--COLOR-DARKER) !important;
+}
+.bg-dark {
+  background-color: var(--COLOR-DARK) !important;
+}
+.text-xlarge {
+  font-size: 2vh;
+}
+.border-light {
+  border-color: var(--COLOR-LIGHT-DARK) !important;
+}
+.border-darker {
+  border-color: var(--COLOR-DARKER) !important;
+}
+.mrt-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.pr-long {
+  padding-right: 4vh;
+}
+h3 {
+  font-family: different !important;
+  font-size: 2.3vh !important;
+  margin-top: 2vh !important;
+}
+.delete-icon {
+  visibility: hidden;
+}
+.delete-frame:hover .delete-icon {
+  visibility: visible;
+}
+@media only screen and (max-width: 1000px) {
+  .delete-icon {
+    visibility: visible;
+  }
+}

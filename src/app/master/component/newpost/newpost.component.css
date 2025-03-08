@@ -1,0 +1,102 @@
+* {
+  direction: rtl;
+  text-align: right;
+}
+.d-absolute-top {
+  position: relative;
+  right: 0;
+  top: 35%;
+  z-index: 9999 !important;
+  color: white;
+  background-color: black !important;
+  width: 100%;
+}
+.d-result-absolute {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9999 !important;
+  background-color: black !important;
+  width: 100%;
+}
+.parent-result {
+  z-index: 999 !important;
+}
+::ng-deep mat-form-field,
+mat-select,
+input {
+  outline: none !important;
+  width: 100%;
+  border: solid 1px #000 !important;
+  padding-top: 2vh;
+  background-color: black !important;
+  padding-bottom: 2vh;
+  padding-right: 2vh;
+  color: var(--COLOR-MUTED) !important;
+}
+* {
+  direction: rtl !important;
+  text-align: right !important;
+}
+@media only screen and (min-width: 1200px) {
+  mat-form-field {
+    width: 75%;
+  }
+  .paddin-response {
+    padding: 5%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  mat-form-field {
+    width: 100%;
+  }
+  .paddin-response {
+    padding: 0;
+  }
+}
+form > div {
+  margin-top: 2%;
+}
+.text-center {
+  text-align: center !important;
+}
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text,
+mat-select,
+.mat-select,
+.mat-option,
+mat-option {
+  margin-right: 0 !important;
+  background-color: black !important;
+  border: none !important;
+  text-align: right !important;
+  color: white !important;
+}
+.child-zindex {
+  z-index: 1 !important;
+}
+.editors {
+  height: 500px !important;
+  max-height: 800px !important;
+  color: rgb(161, 161, 161) !important;
+  background-color: black !important;
+}
+.text-title {
+  font-size: 2.3vh;
+}
+.file {
+  display: none;
+}
+::ng-deep .mat-mdc-select-panel {
+  padding: 0 !important;
+  text-align: right !important;
+}
+input {
+  margin: 0 !important;
+  background-color: black !important;
+  border: none !important;
+  text-align: right !important;
+  color: white !important;
+}
+.img-newpost{
+  width: 100%;
+}

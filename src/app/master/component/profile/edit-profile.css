@@ -1,0 +1,14 @@
+
+*{
+    direction: rtl !important;
+}
+.text-muted-light{
+    color: var(--COLOR-MUTED) !important;
+}
+.modal-full{
+    width: 50vh !important;
+}
+input{
+    width: 100% !important;
+    height: 2vh !important;
+}

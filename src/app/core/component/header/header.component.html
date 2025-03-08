@@ -1,0 +1,73 @@
+<div
+  [class.w-100]="!deviceIsPc"
+  class="inline header-frame w-60 justify-content-center align-self-center flex-nowrap p-1"
+>
+  <div
+    class="icons text-left mr-auto text-light mr-auto"
+    style="flex-basis: 10%"
+  >
+    <div class="mr-auto cursor-pointer" (click)="goHome()">
+      <span
+        class="text-logos mr-auto"
+        [class.homeWaitRouteAnimation]="homeWaitRoute"
+        >Quora</span
+      >
+    </div>
+  </div>
+  <div
+    *ngIf="deviceIsPc"
+    class="icons text-right pr-4 text-light mr-auto text-xlarge"
+    style="flex-basis: 30%"
+  >
+    <span>
+      <i class="fa fa-heart fa-2x links-reverse" aria-hidden="true"></i>
+    </span>
+    <span><i class="fa fa-home links-reverse fa-2x"></i></span>
+    <span
+      ><i [matBadge]="'10'" class="fa fa-commenting-o links-reverse fa-2x"></i
+    ></span>
+  </div>
+  <div
+    class="mr-auto"
+    [ngStyle]="{ 'flex-basis': deviceIsPc ? '40%' : '100%' }"
+    style="flex-basis: 30%"
+  >
+    <app-search></app-search>
+  </div>
+  <div
+    *ngIf="deviceIsPc"
+    style="flex-basis: 15%"
+    class="text-right pl-3 pr-3 text-light mr-auto"
+  >
+    <button
+      *ngIf="this.userLoginedObject.email.length > 3"
+      class="streched-button links-reverse"
+      mat-raised-button
+      (click)="gotoRouteWithDelay('feature/post')"
+    >
+      بپرس
+    </button>
+  </div>
+  <div
+    style="flex-basis: 15%"
+    class="text-right text-light cursor-pointer mr-auto"
+  >
+    <div *ngIf="this.userLoginedObject.email.length > 2; else mustLogin">
+      <app-usermenu [userLoginedObject]="userLoginedObject"></app-usermenu>
+    </div>
+    <ng-template #mustLogin>
+      <button
+        class="mr-auto bg-black text-white button"
+        mat-raised-button
+        (click)="activeLoginModal()"
+      >
+        <span *ngIf="deviceIsPc; else shortLoginMust"> وارد شوید </span>
+        <ng-template #shortLoginMust>
+          <span>
+            <i class="fa fa-user links-reverse fa-2x"></i>
+          </span>
+        </ng-template>
+      </button>
+    </ng-template>
+  </div>
+</div>

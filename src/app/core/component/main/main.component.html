@@ -1,0 +1,137 @@
+<div class="d-flex text-right">
+  <div style="flex-basis: 50%" class="text-left">
+    <i
+      *ngIf="!deviceIsPc"
+      class="fa fa-bars fa-2x text-black ml-4"
+      (click)="showBranches()"
+    ></i>
+  </div>
+  <div style="flex-basis: 50%" class="text-right">
+    <select
+      (change)="sortData($event)"
+      [(ngModel)]="sort"
+      class="mr-2 mb-1 p-4 rounded"
+    >
+      <option value="new">جدیدترین</option>
+      <option value="like">پربازدید ترین</option>
+    </select>
+  </div>
+</div>
+
+<div [class.w-100]="!deviceIsPc" class="w-100 bg-darker p-2 rounded">
+  <div
+    class="bg-darker border rounded border-dark rounded w-100 justify-content-center d-flex shadow-sm"
+  >
+    <div
+      [class.deactive]="
+        componentSetting?.settingVariables?.typeOfPost === 'ask' &&
+        componentSetting?.settingVariables?.typeOfPost !== 'all'
+      "
+      class="text-light w-50 p-3 cursor-pointer opacity-low"
+      (click)="typeOfPostChange('ask')"
+    >
+      <span> سوالات </span>
+    </div>
+    <div class="border border-dark m-2"></div>
+    <div
+      [class.deactive]="
+        componentSetting?.settingVariables?.typeOfPost === 'post' &&
+        componentSetting?.settingVariables?.typeOfPost !== 'all'
+      "
+      class="bg-darker text-light w-50 p-3 cursor-pointer opacity-low"
+      (click)="typeOfPostChange('post')"
+    >
+      <span> تجربه ها </span>
+    </div>
+    <div class="border border-dark m-2"></div>
+
+    <div
+      class="bg-darker text-light w-50 p-3 cursor-pointer opacity-low"
+      (click)="publicPosts()"
+    >
+      <span
+        ><i
+          [class.active-seed]="seed === 'public'"
+          class="fa fa-snowflake-o fa-2x"
+          aria-hidden="true"
+        ></i>
+      </span>
+    </div>
+    <div
+      *ngIf="fetchUserLogined()?.length > 3"
+      class="border border-dark m-2"
+    ></div>
+    <div
+      *ngIf="fetchUserLogined()?.length > 3"
+      class="bg-darker text-light w-50 p-3 cursor-pointer opacity-low"
+      (click)="mySeed()"
+    >
+      <span>
+        <i
+          [class.active-seed]="seed === 'mySeed'"
+          class="fa fa-ship fa-2x"
+          [classList]=""
+        ></i>
+      </span>
+    </div>
+  </div>
+  <div class="d-relative">
+    <app-loadingProgressDynamic
+      *ngIf="loadingProgressDynamicVar === 'change post type'"
+    ></app-loadingProgressDynamic>
+    <div
+      class="w-100 text-right text-light p-3"
+      *ngIf="groupCategoryName && groupCategoryName !== ''"
+    >
+      <mat-chip class="bg-light-pink text-darker border">
+        شاخه
+        {{ groupCategoryName }}
+      </mat-chip>
+    </div>
+    <ng-container *ngIf="searchPool?.length === 0 && postDatas?.length === 0">
+      <img
+        src="../../../../assets/img/notfound.png"
+        class="mr-auto opacity-low"
+      />
+    </ng-container>
+    <ng-container *ngIf="searchPool?.length === 0; else searchPoolContainer">
+      <ng-container *ngFor="let item of postDatas; let i = index">
+        <ng-container *ngIf="item.id; else emptyResutl">
+          <app-post [data]="item" [typeOfShow]="'main'"></app-post>
+        </ng-container>
+        <ng-template #emptyResutl>
+          <div
+            class="w-100 p-4"
+            *ngIf="this.componentSetting.settingVariables.offset === 0"
+          >
+            <img
+              class="mr-auto opacity-low rounded w-50"
+              src="../../../../assets/img/notfound.png"
+            />
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+    <ng-template #searchPoolContainer>
+      <ng-container *ngFor="let item of searchPool; let i = index">
+        <ng-container *ngIf="item.id; else emptyResutl">
+          <app-post [data]="item" [typeOfShow]="'main'"></app-post>
+        </ng-container>
+        <ng-template #emptyResutl>
+          <div
+            class="w-100 p-4"
+            *ngIf="this.componentSetting.settingVariables.offset === 0"
+          >
+            <img
+              class="mr-auto opacity-low rounded w-50"
+              src="../../../../assets/img/notfound.png"
+            />
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </div>
+  <div class="text-center" *ngIf="postDatas[0]?.id">
+    <span class="links" (click)="nextPagesLoad()"> MORE </span>
+  </div>
+</div>

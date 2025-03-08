@@ -1,0 +1,30 @@
+<div class="w-100 mr-auto">
+  <form class="w-100 text-center p-2" [formGroup]="formSearch">
+    <input
+      formControlName="searchInput"
+      matInput
+      class="w-100 search-input shadow-sm"
+      value="Search"
+    />
+  </form>
+  <div class="d-relative" *ngIf="searchPool[0]?.id">
+    <div class="div-search-result text-light bg-black">
+      <div
+        (click)="gotoRouteWithDelay('feature/zoom/' + item.id)"
+        *ngFor="let item of searchPool"
+        class="p-2 text-right cursor-pointer links rounded m-1"
+      >
+        <ng-container *ngIf="item && item.id">
+          <p>
+            {{ item.title }}
+          </p>
+          <p class="p-2 text-white text-smalls">
+            <span class="p-1">{{ item.user.name }}</span
+            >-
+            <span class="p-1">{{ otDateTime(item.date) }}</span>
+          </p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

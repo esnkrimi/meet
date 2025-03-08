@@ -1,0 +1,37 @@
+<div class="bg-darker w-100 text-right">
+  <div
+    (click)="messageBoardListActive(item?.sender, item?.email)"
+    *ngFor="let item of messages"
+    class="rounded links m-1 p-1 message-frames w-100 text-right"
+  >
+    <div class="bg-dark shadow-sm rounded p-1">
+      <p>
+        <span class="text-pink text-capitalize mr-2">{{ item?.icon }}</span>
+        <span>
+          <img
+            [src]="
+              'https://burjcrown.com/drm/experience/users/' +
+              item?.sender +
+              '/user.jpg'
+            "
+            class="image-icon mr-auto rounded-circle"
+          />
+        </span>
+      </p>
+      <p class="pr-4 pt-1 mr-3">
+        <span class="text-light-muted">
+          {{ otDateTime(item?.date) }}
+        </span>
+      </p>
+      <p class="pr-4 pt-1 mr-3">
+        <span class="text-creamy">{{ item?.content }}</span>
+        <span *ngIf="item?.icon === item?.sender">
+          <i class="fa fa-arrow-right"></i>
+        </span>
+        <span *ngIf="item?.icon !== item?.sender">
+          <i class="fa fa-arrow-left"></i>
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
