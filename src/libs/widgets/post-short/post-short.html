@@ -1,15 +1,43 @@
-<div *ngIf="data" class="w-100 p-3 mt-2 bg-dark text-right shadow-sm">
+<div *ngIf="data" class="w-100 p-3 mt-2 bg-dark frame-item text-right shadow-sm" 
+>
+<div class="details-frame animation-fadein p-4">
+<div class="text-white w-100 text-left dir-ltr">
+  <span><i class="fa fa-male"></i></span>
+  {{data?.height}}CM/{{data?.weight}}KG
+</div>
+<div  *ngIf="data?.car!==''" class="text-white   w-100 text-left dir-ltr">
+  <span ><i class="fa fa-car"></i></span>
+</div>
+<div *ngIf="data?.house!==''" class="text-white   w-100 text-left dir-ltr">
+  <span ><i class="fa fa-home"></i></span>
+</div>
+<div *ngIf="data?.smoke!=='NO'" class="text-white   w-100 text-left dir-ltr">
+  <span >SMOKE</span>
+</div>
+<div *ngIf="data?.drink!=='NO'" class="text-white   w-100 text-left dir-ltr">
+  <span ><i class="fa fa-glass"></i></span>
+</div>
+<div class="text-white   w-100 text-left dir-ltr">
+  <span *ngIf="data?.tatto!=='NO'"><i class="fa fa-paint-brush"></i></span>
+</div>
+<div class="text-white   w-100 text-left dir-ltr">
+  <span>{{data?.income}} M</span>
+</div>
+
+</div>
   <div class="d-flex">
-    <div style="flex-basis: 50%" class="text-left text-light"></div>
-    <div style="flex-basis: 50%" class="text-right">
-      <h2 class="text-white text-right" [innerHTML]="data?.title"></h2>
+    <div style="flex-basis: 50%" class="text-left text-light">
+      <span class="text-small text-light">
+        <i
+          class="fa fa-commenting-o fa-2x"
+          (click)="messageBoardActive(data?.user)"
+        ></i
+      ></span>
     </div>
-  </div>
-  <div class="d-flex w-100 flex-row-reverse">
-    <div class="flex-grow-1">
-      <div class="d-flex flex-row-reverse mb-3">
-        <div>
-          <img
+    <div style="flex-basis: 50%" class="text-right">
+      <div class="text-right d-flex dir-rtl">
+        <span>
+          <img style="margin-top: auto;"
             [routerLink]="['feature/profile/' + data?.user?.email]"
             [src]="
               'https://burjcrown.com/drm/date/users/' +
@@ -18,61 +46,13 @@
             "
             class="image-icon cursor-pointer"
           />
-        </div>
-        <div class="d-flex v-align-middle">
-          <div *ngIf="data?.user?.email !== loginedUser">
-            <ng-container *ngIf="!IFollow">
-              <span class="links" *ngIf="deviceIsPc; else shortFollow">
-                <!--
-                دنبال کن
-                -->
-              </span>
-              <ng-template #shortFollow>
-                <span class="text-green p-1">
-                  <i class="fa fa-shield fa-1x links"></i>
-                </span>
-              </ng-template>
-            </ng-container>
-            <ng-container *ngIf="IFollow">
-              <span class="links" *ngIf="deviceIsPc; else shortUnfollow">
-                حذف دنباله</span
-              >
-              <ng-template #shortUnfollow>
-                <span class="text-green p-1">
-                  <i class="fa fa-check fa-x text-success"></i>
-                </span>
-              </ng-template>
-            </ng-container>
-          </div>
-          <div>
-            <p class="text-right">
-              <span class="text-light-muted text-small">نویسنده : </span>
-              <span class="text-light text-small">
-                {{ data?.user?.name }}
-              </span>
-              <span class="text-light text-small"
-                >{{ data?.user?.family }}
-              </span>
-              <span class="text-small text-light">
-                <i
-                  class="fa fa-commenting-o"
-                  (click)="messageBoardActive(data?.user)"
-                ></i
-              ></span>
-              -
-              <span class="text-small text-light"> {{ data?.user?.job }}</span>
-            </p>
-            <p class="mt-2">
-              <span class="w-100 p-2 text-right text-light-muted text-smalls">
-                {{ otDateTime(data?.date) }}
-              </span>
-            </p>
-          </div>
-        </div>
+        </span>
+        <span>
+          <h2 style="margin-top: auto;" class="text-white text-right" [innerHTML]="data?.title"></h2>
+        </span>
       </div>
     </div>
   </div>
-  <div class="w-100 border-darker border-bottom"></div>
   <div class="mr-1 mt-1 w-100 text-right d-relative">
     <app-loadingProgressDynamic
       *ngIf="loadingProgressDynamicVar === 'post content' + data?.date"
@@ -81,7 +61,7 @@
     <div class="w-100 text-left">
       <mat-chip-set>
         <mat-chip
-          class="chips bg-light-pink text-white border border-light"
+          class="chips bg-darker text-white border border-light"
           *ngFor="let c of data.category"
           >{{ c }}</mat-chip
         >
@@ -121,7 +101,7 @@
   </div>
 
   <div class="d-flex pt-2 mt-2 comments">
-    <div>
+    <div class="d-relative">
       <span (click)="savePost(data)" class="text-medum">
         <i
           [class.fa-bookmark]="
@@ -130,18 +110,29 @@
           [class.fa-bookmark-o]="
             userLoginedSavedPost && userLoginedSavedPost?.length === 0
           "
-          class="fa hover-color text-medum"
+          [class.text-pink]="
+            userLoginedSavedPost && userLoginedSavedPost?.length > 0
+          "
+          [class.text-light-muted]="
+            userLoginedSavedPost && userLoginedSavedPost?.length === 0
+          "
+          class="fa fa-bookmark-o hover-color text-medum"
         ></i>
       </span>
     </div>
     <div class="d-relative">
-      <span class="text-small animation-fadein" (click)="likePost(data?.id)">
+      <span (click)="likePost(data?.id)" class="text-medum">
         <i
           [class.text-pink]="
             userLoginedLikePost && userLoginedLikePost?.length > 0
           "
+          [class.text-light-muted]="
+            userLoginedLikePost && userLoginedLikePost?.length === 0
+          "
           class="fa fa-heart hover-color text-medum"
         ></i>
+      </span>
+      <span *ngIf="likeCounter(data?.likes)!=='.'">
         {{ likeCounter(data?.likes) }}
       </span>
     </div>

@@ -52,7 +52,7 @@ export class MainComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.listenToSearchPool();
-    this.fetchPostsAction(0, true);
+    this.fetchPostsAction(2, true);
     this.fetchPostsSelect();
     this.loadingGroupCategory();
     this.fetchUserLogined();
@@ -139,7 +139,7 @@ export class MainComponent implements OnInit {
 
   nextPagesLoad() {
     const tmp = this.componentSetting.settingVariables.offset;
-    this.componentSetting.settingVariables.offset = tmp + 2;
+    this.componentSetting.settingVariables.offset = tmp + 10;
     this.fetchPostsAction(this.componentSetting.settingVariables.offset, false);
   }
   resetSetting() {
