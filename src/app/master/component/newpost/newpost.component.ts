@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Ng2ImgMaxService } from 'ng2-img-max';
@@ -20,6 +21,7 @@ export class NewpostComponent implements OnInit {
   @ViewChild('file') file: any;
 
   formNewPost = new FormGroup({
+    userEmail: new FormControl(''),
     group: new FormControl('1', Validators.required),
     title: new FormControl('', Validators.required),
     category: new FormControl(''),
@@ -30,24 +32,24 @@ export class NewpostComponent implements OnInit {
     weight: new FormControl('70'),
     hair: new FormControl('مشکی'),
     eye: new FormControl('مشکی'),
-    glass: new FormControl('ندارم'),
+    glass: new FormControl('no'),
     bra: new FormControl('A'),
+    typeInterrested: new FormControl(['classic']),
     waist: new FormControl(''),
     hips: new FormControl(''),
     arm: new FormControl(''),
     armpit: new FormControl(''),
     income: new FormControl(''),
     taigh: new FormControl(''),
-    tatto: new FormControl(''),
-    smoke: new FormControl(''),
-    drink: new FormControl(''),
-    region: new FormControl(''),
-    openrelation: new FormControl(''),
+    tatto: new FormControl('NO'),
+    smoke: new FormControl('NO'),
+    drink: new FormControl('NO'),
+    region: new FormControl('NO'),
+    openrelation: new FormControl('NO'),
     mainattr: new FormControl(''),
     car: new FormControl(''),
-    house: new FormControl(''),
+    house: new FormControl('NO'),
     sport: new FormControl(''),
-
   });
   @ViewChild('title') titleInput: ElementRef | undefined;
   @ViewChild('content') content: ElementRef | undefined;
@@ -61,11 +63,12 @@ export class NewpostComponent implements OnInit {
   lockStep = false;
   loadingProgress: any;
   usePicture = true;
+  profileImage: any;
   constructor(
     private ng2ImgMaxService: Ng2ImgMaxService,
     private dynamicVariableService: DynamicVariableService,
     private localStorageService: LocalStorageService,
-    private router: Router,
+    private sanitizer: DomSanitizer,
     private store: Store,
     private loadingProgressDynamicService: LoadingProgressDynamicService
   ) {}
@@ -85,21 +88,12 @@ export class NewpostComponent implements OnInit {
       }
     );
   }
-  pageNext() {
-    this.pageOfForm = this.pageOfForm + 1;
-    this.lockStep = false;
-    this.showLoadingProgress();
-  }
+
   showLoadingProgress() {
     this.loadingProgressDynamicService.loadingProgressActiveation(
       'step changed'
     );
     this.loadingProgressDynamicService.loadingProgressDeactiveation(500);
-  }
-  pagePrev() {
-    this.pageOfForm = this.pageOfForm - 1;
-    this.lockStep = false;
-    this.showLoadingProgress();
   }
   isWordSimilar(word1: any, word2: any) {
     const sim1 = word1?.includes(word2);
@@ -114,9 +108,9 @@ export class NewpostComponent implements OnInit {
       if (ch.length > 0) {
         this.categories = tmp.slice(0, 5);
       }
-      if(this.categories.length===0){
-        this.categories.push({name:ch})
-      } 
+      if (this.categories.length === 0) {
+        this.categories.push({ name: ch });
+      }
     });
   }
   makeCategory(item: any) {
@@ -126,9 +120,9 @@ export class NewpostComponent implements OnInit {
     this.formNewPost.get('category')?.setValue('');
   }
   checkContent() {
-    const contentLength: any = this.formNewPost.get('content')?.value;
+    /* const contentLength: any = this.formNewPost.get('content')?.value;
     if (contentLength.length > 10) this.lockStep = true;
-    else this.lockStep = false;
+    else this.lockStep = false;*/
   }
   fetchGroupCatsAction() {
     this.store.dispatch(actions.prepareToFetchGroupCats());
@@ -149,6 +143,7 @@ export class NewpostComponent implements OnInit {
       } else this.myFiles.push(event.target.files[i]);
     }
     if (this.pageOfForm === 6) this.pageOfForm++;
+    this.updateImage(this.myFiles);
     this.showLoadingProgress();
   }
   fetchPostCategoriesAction() {
@@ -164,12 +159,8 @@ export class NewpostComponent implements OnInit {
       (result: any) => {
         this.myFiles.push(result);
       },
-      (error) => {}
+      (error) => {} 
     );
-  }
-  checkInputLength(inputString: any) {
-    this.lockStep =
-      this.titleInput?.nativeElement.value.length > 3 ? true : false;
   }
   submitFile() {
     this.dynamicVariableService.loadingProgressActiveation();
@@ -177,31 +168,33 @@ export class NewpostComponent implements OnInit {
     user = JSON.parse(user);
     const formData = new FormData();
     this.myFiles = this.myFiles.reverse();
-    const tmp1: any = this.formNewPost.get('content')?.value;
-    const tmp2: any = this.formNewPost.get('title')?.value;
-    const formValues = {
-      userid: user.email,
-      groupid: this.formNewPost.get('group')?.value,
-      typeOfPost: this.formNewPost.get('typeOfPost')?.value,
-      content: encodeURIComponent(tmp1),
-      title: encodeURIComponent(tmp2),
-      category: Array.from(this.selectedCategorySet),
-    };
+    let tmpContent: any = this.formNewPost.get('content')?.value;
+    tmpContent = encodeURIComponent(tmpContent);
+    let tmpTitle: any = this.formNewPost.get('title')?.value;
+    tmpTitle = encodeURIComponent(tmpTitle);
+    this.formNewPost.get('title')?.setValue(tmpTitle);
+    this.formNewPost.get('userEmail')?.setValue(user?.email);
+    this.formNewPost.get('content')?.setValue(tmpContent);
+    this.formNewPost
+      .get('category')
+      ?.setValue(Array.from(this.selectedCategorySet).toString());
+
     for (let i = 0; i < this.myFiles.length; i++) {
       formData.append('file[]', this.myFiles[i]);
     }
 
+    console.log(this.formNewPost.value);
     this.store.dispatch(
       actions.prepareToSubmitPost({
-        formValues: formValues,
+        formValues: this.formNewPost.value,
         formData: formData,
       })
     );
     setTimeout(() => {
-      this.dynamicVariableService.loadingProgressDeactiveation();
-      this.pageOfForm = 0;
-      this.router.navigate(['feature/profile/' + user.email + '/myPosts']);
-      alert('successfull');
+       this.dynamicVariableService.loadingProgressDeactiveation();
+      // this.pageOfForm = 0;
+      // this.router.navigate(['feature/profile/' + user.email + '/myPosts']);
+       alert('successfull');
     }, 1500);
   }
   removeFromCategory(cat: string) {
@@ -215,5 +208,23 @@ export class NewpostComponent implements OnInit {
     );
     if (checkFilledSteps.length === 0) this.lockStep = false;
     this.selectedCategorySet = new Set(this.selectedCategory);
+  }
+  formatLabelCm(value: number): string {
+    return Math.round(value) + ' سانتی متر';
+  }
+  formatLabelMoney(value: number): string {
+    return Math.round(value) + 'میلیون تومان';
+  }
+  formatLabelAge(value: number): string {
+    return Math.round(value) + 'سال';
+  }
+  formatLabelWeight(value: number): string {
+    return Math.round(value) + 'کیلو گرم';
+  }
+  updateImage(ev: any) {
+    console.log(ev[0]);
+    this.profileImage = this.sanitizer.bypassSecurityTrustUrl(
+      window.URL.createObjectURL(ev[0])
+    );
   }
 }

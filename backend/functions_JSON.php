@@ -521,25 +521,55 @@ function submitPost($con){
     $email=$_GET['userid'];
     $userid=fetchUserByUserEmail($con,$_GET['userid'])->id;
     $groupid=$_GET['groupid'];
-
+    $cat=explode(",",$_GET['category']);//var_dump( $cat);
     $title=$_GET['title'];
+    $sx=$_GET['sx'];
     $content=$_GET['content'];
-    $typeofpost=$_GET['typeofpost'];    
+    $age=$_GET['age'];
+    $height=$_GET['height'];
+    $weight=$_GET['weight'];
+    $hair=$_GET['hair'];
+    $eye=$_GET['eye'];
+    $glass=$_GET['glass'];
+    $bra=$_GET['bra'];
+    $typeInterrested=$_GET['typeInterrested'];
+    $waist=$_GET['waist'];
+    $hips=$_GET['hips'];
+    $arm=$_GET['arm'];
+    $armpit=$_GET['armpit'];
+    $income=$_GET['income'];
+    $taigh=$_GET['taigh'];
+    $tatto=$_GET['tatto'];
+    $smoke=$_GET['smoke'];
+    $drink=$_GET['drink'];
+    $region=$_GET['region'];
+    $openrelation=$_GET['openrelation'];
+    $mainattr=$_GET['mainattr'];
+    $car=$_GET['car'];
+    $house=$_GET['house'];
+    $sport=$_GET['sport'];
+    
     $date=date("YmdHis");
     $expid=$con->GET_MAX_COL('exp','id');
-    $sql = "insert into exp values($expid,$userid,$groupid,'$title','$content','$date',1,'$typeofpost')"; //echo $sql;
+    
+    
+    
+    $sql = "insert into exp values($expid,$userid,$groupid,'$title','$content','$date',1,'$sx','$height','$weight','$hair','$eye','$glass','$bra','$waist','$hips','$arm','$armpit','$income','$taigh','$tatto','$smoke','$drink','$region','$openrelation','$mainattr','$car','$house','$sport','$typeInterrested')"; //echo $sql;
+    
+    
+    
+    
     $con->QUERY_RUN($con,$sql);
-    $cat=explode(",",$_GET['category']);//var_dump( $cat);
     for($i=0;$i<count($cat);$i++){
         $id=$con->GET_MAX_COL('exp_category','id');
         $catId=findCatIdByName($con,$cat[$i]); 
         if($catId!=''){
-          $sql = "insert into exp_category values($id,$expid,$catId)"; echo $sql;
+          $sql = "insert into exp_category values($id,$expid,$catId)"; //echo $sql;
           $con->QUERY_RUN($con,$sql);
         }
     }
     $file = $_FILES["file"];
-    $id=$con->GET_MAX_COL('exp','id')-1;
+    $id=$expid;
     imgUpload($con,$email,$id,$file);
 }
 

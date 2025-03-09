@@ -120,14 +120,14 @@ export class ApiService {
   }
   fetchAllMessage(sender: string, receiver: string) {
     console.log(
-       this.baseUrl +
+      this.baseUrl +
         'id=24&sender=' +
         sender +
         '&receiver=' +
         receiver +
         '&ts=' +
         new Date().getSeconds()
-    )
+    );
     return this.http.get(
       this.baseUrl +
         'id=24&sender=' +
@@ -181,10 +181,10 @@ export class ApiService {
   }
   submitNewPost(formValues: any, formData: any) {
     console.log(
-      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`
+      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userEmail}&category=${formValues.category}&groupid=${formValues.group}&title=${formValues.title}&content=${formValues.content}&sx=${formValues.sx}&age=${formValues.age}&height=${formValues.height}&weight=${formValues.weight}&hair=${formValues.hair}&eye=${formValues.eye}&glass=${formValues.glass}&bra=${formValues.bra}&typeInterrested=${formValues.typeInterrested}&waist=${formValues.waist}&hips=${formValues.hips}&arm=${formValues.arm}&armpit=${formValues.armpit}&income=${formValues.income}&taigh=${formValues.taigh}&tatto=${formValues.tatto}&smoke=${formValues.smoke}&drink=${formValues.drink}&region=${formValues.region}&openrelation=${formValues.openrelation}&mainattr=${formValues.mainattr}&car=${formValues.car}&house=${formValues.house}&sport=${formValues.sport}`,
     );
     return this.http.post(
-      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userid}&category=${formValues.category}&groupid=${formValues.groupid}&title=${formValues.title}&content=${formValues.content}&typeofpost=${formValues.typeOfPost}`,
+      `https://burjcrown.com/drm/date/index.php?id=6&userid=${formValues.userEmail}&category=${formValues.category}&groupid=${formValues.group}&title=${formValues.title}&content=${formValues.content}&sx=${formValues.sx}&age=${formValues.age}&height=${formValues.height}&weight=${formValues.weight}&hair=${formValues.hair}&eye=${formValues.eye}&glass=${formValues.glass}&bra=${formValues.bra}&typeInterrested=${formValues.typeInterrested}&waist=${formValues.waist}&hips=${formValues.hips}&arm=${formValues.arm}&armpit=${formValues.armpit}&income=${formValues.income}&taigh=${formValues.taigh}&tatto=${formValues.tatto}&smoke=${formValues.smoke}&drink=${formValues.drink}&region=${formValues.region}&openrelation=${formValues.openrelation}&mainattr=${formValues.mainattr}&car=${formValues.car}&house=${formValues.house}&sport=${formValues.sport}`,
       formData
     );
   }

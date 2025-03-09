@@ -1,26 +1,21 @@
-* {
-  direction: rtl;
-  text-align: right;
-}
 .d-absolute-top {
   position: relative;
   right: 0;
   top: 35%;
-  z-index: 9999 !important;
+  z-index: 999999 !important;
   color: white;
   background-color: black !important;
   width: 100%;
 }
 .d-result-absolute {
-  position: absolute;
+  position: static;
   right: 0;
   top: 0;
-  z-index: 9999 !important;
-  background-color: black !important;
+  z-index: 999999 !important;
   width: 100%;
 }
 .parent-result {
-  z-index: 999 !important;
+  z-index: 9989999 !important;
 }
 ::ng-deep mat-form-field,
 mat-select,
@@ -35,8 +30,10 @@ input {
   color: var(--COLOR-MUTED) !important;
 }
 * {
-  direction: rtl !important;
   text-align: right !important;
+}
+mat-option{
+  direction: rtl !important;
 }
 @media only screen and (min-width: 1200px) {
   mat-form-field {
@@ -50,6 +47,10 @@ input {
   mat-form-field {
     width: 100%;
   }
+  mat-slider {
+    width: 90vw !important;
+  }
+
   .paddin-response {
     padding: 0;
   }
@@ -96,7 +97,13 @@ input {
   border: none !important;
   color: white !important;
 }
-.img-newpost{
+.img-newpost {
   width: 90vh;
   height: 40vh;
+}
+.animation-fadein {
+  border: solid 1px #333;
+}
+mat-slider {
+  width: 20vw;
 }

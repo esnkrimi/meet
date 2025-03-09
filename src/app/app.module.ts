@@ -17,6 +17,7 @@ import {
 import { rootRouteModule } from './app.routes';
 import { MasterModule } from './master/master.module';
 import { NgMagnizoomModule } from 'ng-magnizoom';
+import { MatSliderModule } from '@angular/material/slider';
 export function detectWidth() {
   return window.innerWidth > 1200;
 }
@@ -29,6 +30,7 @@ export function detectWidth() {
     rootRouteModule,
     NgMagnizoomModule,
     HttpClientModule,
+    MatSliderModule,
     MasterModule,
     MatDialogModule,
     CoreModule,
